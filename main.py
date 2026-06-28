@@ -20,7 +20,6 @@ async def resolve_and_extract(link: str) -> dict:
 
         # Extract display name from page title
         title = await page.title()
-        # Example: "Pavithra Naidu (@pavithra261432) | Snapchat Stories..."
         name = title.split("(@")[0].strip()
 
         await browser.close()
@@ -36,8 +35,8 @@ async def main():
         data = await resolve_and_extract(link)
         results.append(data)
 
-    # Write each result on its own line with a comma at the end
-    with open("output.json", "w") as f:
+    # Save results in a text file, JSON-style per line
+    with open("output.txt", "w") as f:
         for item in results:
             f.write(json.dumps(item) + ",\n")
 
