@@ -1,13 +1,13 @@
 name: Run Snapchat Resolver
 
 on:
-  push:
-    paths:
-      - "input_links.txt"   # run only when input_links.txt changes
-      - "main.py"
+  workflow_dispatch:   # 👈 enables manual "Run workflow" button
+  push:                # 👈 runs automatically on pushes
+    branches:
+      - main           # adjust if your default branch is different
 
 jobs:
-  build:
+  run-resolver:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,11 +24,11 @@ jobs:
           pip install playwright
           python -m playwright install
 
-      - name: Run resolver
+      - name: Run resolver script
         run: |
           python main.py
 
-      - name: Commit output.json
+      - name: Commit updated output.json
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
